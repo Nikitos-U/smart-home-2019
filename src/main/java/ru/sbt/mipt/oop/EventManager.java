@@ -1,6 +1,8 @@
 package ru.sbt.mipt.oop;
 
-import static ru.sbt.mipt.oop.SensorEvent.getNextSensorEvent;
+import java.util.logging.Handler;
+
+import static ru.sbt.mipt.oop.FakeSensorEventsGenerator.getNextSensorEvent;
 import static ru.sbt.mipt.oop.SensorEventType.*;
 
 class EventManager {
@@ -9,8 +11,11 @@ class EventManager {
         while (event != null) {
             System.out.println("Got event: " + event);
             SensorEventType type = event.getType();
-            type.createHandler(type, event.getObjectId(), smartHome);
-            event = SensorEvent.getNextSensorEvent();
+            for (HandlerType handlerType : HandlerType.values() ) {
+                EventHandler eventHandler = handlerType.getEventHandler();
+                eventHandler.run(type,event.getObjectId(),smartHome);
+            }
+            event = getNextSensorEvent();
         }
     }
 

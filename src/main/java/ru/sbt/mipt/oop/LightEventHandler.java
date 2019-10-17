@@ -2,9 +2,9 @@ package ru.sbt.mipt.oop;
 
 import static ru.sbt.mipt.oop.SensorEventType.LIGHT_ON;
 
-class LightEventHandler extends EventHandler {
-    public LightEventHandler(SensorEventType type, String objectId,SmartHome smartHome) {
-        super(type,objectId,smartHome);
+class LightEventHandler implements EventHandler {
+    @Override
+    public void run(SensorEventType type, String objectId, SmartHome smartHome) {
         for (Room room : smartHome.getRooms()) {
             for (Light light : room.getLights()) {
                 if (light.getId().equals(objectId)) {
