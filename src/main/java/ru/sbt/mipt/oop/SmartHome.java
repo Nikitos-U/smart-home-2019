@@ -3,7 +3,7 @@ package ru.sbt.mipt.oop;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class SmartHome {
+public class SmartHome implements Actionable {
     Collection<Room> rooms;
 
     public SmartHome() {
@@ -20,5 +20,18 @@ public class SmartHome {
 
     public Collection<Room> getRooms() {
         return rooms;
+    }
+
+    @Override
+    public void execute(SensorEvent event) {
+        for (Room room : rooms) {
+            room.execute(event);
+            if (event.getObjectId().equals("hall")) {
+                for (ScenarioTypes value : ScenarioTypes.values()) {
+                    Scenarios scenario = value.getScenario();
+                    scenario.run(smartHome, room);
+                }
+            }
+        }
     }
 }
