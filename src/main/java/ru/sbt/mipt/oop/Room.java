@@ -3,9 +3,9 @@ package ru.sbt.mipt.oop;
 import java.util.Collection;
 
 public class Room implements Actionable{
-    private static Collection<Light> lights;
-    private static Collection<Door> doors;
-    private static String name;
+    private  Collection<Light> lights;
+    private  Collection<Door> doors;
+    private  String name;
 
     public Room(Collection<Light> lights, Collection<Door> doors, String name) {
         this.lights = lights;
@@ -21,22 +21,22 @@ public class Room implements Actionable{
         return doors;
     }
 
-    public static String getName(String objectId) {
-        for (Door door : doors) {
-            if (door.getId().equals(objectId)) {
-                return name;
-            }
-        }
-        return null;
+    public  String getName(){
+        return name;
     }
 
     @Override
-    public void execute(SensorEvent event) {
+    public boolean execute(SensorEvent event) {
         for (Light light : lights) {
-            light.execute(event);
+            if(light.execute(event)){
+                System.out.println(", that happened in " + this.name);
+            }
         }
         for (Door door : doors) {
-            door.execute(event);
+            if(door.execute(event)){
+                System.out.println(", that happened in " + this.name);
+            }
         }
+        return false;
     }
 }

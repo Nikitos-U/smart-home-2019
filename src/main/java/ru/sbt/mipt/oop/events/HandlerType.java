@@ -1,5 +1,7 @@
 package ru.sbt.mipt.oop;
 
+import ru.sbt.mipt.oop.events.DoorEventHandler;
+
 public enum HandlerType {
     LightEvent(new LightEventHandler()), DoorEvent(new DoorEventHandler());
 

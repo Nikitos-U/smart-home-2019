@@ -23,15 +23,11 @@ public class SmartHome implements Actionable {
     }
 
     @Override
-    public void execute(SensorEvent event) {
+    public boolean execute(SensorEvent event) {
+        ScenariosChecker.check(event, this);
         for (Room room : rooms) {
             room.execute(event);
-            if (event.getObjectId().equals("hall")) {
-                for (ScenarioTypes value : ScenarioTypes.values()) {
-                    Scenarios scenario = value.getScenario();
-                    scenario.run(smartHome, room);
-                }
-            }
         }
+        return false;
     }
 }

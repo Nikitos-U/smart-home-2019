@@ -1,5 +1,7 @@
 package ru.sbt.mipt.oop;
 
+import static ru.sbt.mipt.oop.SensorEventType.*;
+
 public class Light implements Actionable{
     private boolean isOn;
     private final String id;
@@ -22,7 +24,18 @@ public class Light implements Actionable{
     }
 
     @Override
-    public void execute(SensorEvent event) {
-
+    public boolean execute(SensorEvent event) {
+        if (this.id.equals(event.getObjectId())) {
+            if (event.getType() == LIGHT_ON) {
+                this.setOn(true);
+                System.out.print("Light " + this.id + " was turned on");
+                return true;
+            } else {
+                this.setOn(false);
+                System.out.print("Light " + this.id + " was turned off");
+                return true;
+            }
+        }
+        return false;
     }
 }

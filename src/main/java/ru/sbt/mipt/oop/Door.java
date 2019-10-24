@@ -20,19 +20,18 @@ public class Door implements Actionable {
     }
 
     @Override
-    public void execute(SensorEvent event) {
-
+    public boolean execute(SensorEvent event) {
         if (this.id.equals(event.getObjectId())) {
             if (event.getType() == DOOR_OPEN) {
                 this.setOpen(true);
-                System.out.println("Door " + this.getId() + " in room " + Room.getName(event.getObjectId()) + " was opened.");
+                System.out.print("Door " + this.getId() + " was opened");
+                return true;
             } else {
                 this.setOpen(false);
-                System.out.println("Door " + this.getId() + " in room " + Room.getName(event.getObjectId()) + " was closed.");
-                // если мы получили событие о закрытие двери в холле - это значит, что была закрыта входная дверь.
-                // в этом случае мы хотим автоматически выключить свет во всем доме (это же умный дом!)
-
+                System.out.print("Door " + this.getId() +  " was closed");
+                return true;
             }
         }
+        return false;
     }
 }

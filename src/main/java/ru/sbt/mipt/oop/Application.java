@@ -8,7 +8,8 @@ public class Application {
         // считываем состояние дома из файла
         HomeCondition reader = new HomeConditionFromFile();
         SmartHome smartHome = reader.readCondition();
-        // начинаем цикл обработки событий
+        // начинаем цикл обработки событий;
+        System.out.println(smartHome.getRooms() + "OLOLOLOLOLO");
         EventManager.processEvent(smartHome);
     }
 }
