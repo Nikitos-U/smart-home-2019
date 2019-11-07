@@ -4,7 +4,7 @@ import java.io.IOException;
 
 public class Application {
 
-    public static void main(String... args) throws IOException {
+    public static void main(String... args) {
         // считываем состояние дома из файла
         HomeCondition reader = new HomeConditionFromFile();
         SmartHome smartHome = reader.readCondition();
