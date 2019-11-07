@@ -4,9 +4,9 @@ import java.io.IOException;
 
 public class Application {
 
-    public static void main(String... args) throws IOException {
+    public static void main(String... args){
         // считываем состояние дома из файла
-        HomeCondition reader = new HomeConditionFromFile();
+        ReadHomeState reader = new ReadHomeStateFromFile();
         SmartHome smartHome = reader.readCondition();
         // начинаем цикл обработки событий;
         System.out.println(smartHome.getRooms() + "OLOLOLOLOLO");
