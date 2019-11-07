@@ -7,7 +7,7 @@ class AllDoorsCloseScenario implements Scenarios {
                 for (Light light : homeRoom.getLights()) {
                     light.setOn(false);
                     SensorCommand command = new SensorCommand(CommandType.LIGHT_OFF, light.getId());
-                    EventManager.sendCommand(command);
+                    CommandManager.sendCommand(command);
                 }
             }
         }

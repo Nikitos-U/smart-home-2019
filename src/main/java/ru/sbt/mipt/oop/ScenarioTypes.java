@@ -1,7 +1,7 @@
 package ru.sbt.mipt.oop;
 
 public enum ScenarioTypes {
-    CloseAllDoors(new AllDoorsCloseScenario());
+    CLOSE_ALL_DOORS(new AllDoorsCloseScenario());
     Scenarios scenario;
 
     public Scenarios getScenario() {

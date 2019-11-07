@@ -1,7 +1,7 @@
 package ru.sbt.mipt.oop;
 
 public enum HandlerType {
-    LightEvent(new LightEventHandler()), DoorEvent(new DoorEventHandler());
+    LIGHT_EVENT(new LightEventHandler()), DOOR_EVENT(new DoorEventHandler());
 
     HandlerType(EventHandler eventHandler) {
         this.eventHandler = eventHandler;
