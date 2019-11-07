@@ -1,5 +1,6 @@
 package ru.sbt.mipt.oop;
 
+import static ru.sbt.mipt.oop.SensorEventType.LIGHT_OFF;
 import static ru.sbt.mipt.oop.SensorEventType.LIGHT_ON;
 
 class LightEventHandler implements EventHandler {
@@ -11,7 +12,7 @@ class LightEventHandler implements EventHandler {
                     if (type == LIGHT_ON) {
                         light.setOn(true);
                         System.out.println("Light " + light.getId() + " in room " + room.getName() + " was turned on.");
-                    } else {
+                    } else if (type == LIGHT_OFF) {
                         light.setOn(false);
                         System.out.println("Light " + light.getId() + " in room " + room.getName() + " was turned off.");
                     }
