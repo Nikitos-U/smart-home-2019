@@ -13,7 +13,7 @@ public class Light {
         return isOn;
     }
 
-    public String getId() {
+    String getId() {
         return id;
     }
 
