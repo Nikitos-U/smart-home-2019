@@ -23,11 +23,12 @@ public class SmartHome implements Actionable {
     }
 
     @Override
-    public boolean execute(SensorEvent event) {
-        ScenariosChecker.check(event, this);
-        for (Room room : rooms) {
-            room.execute(event);
+    public void execute(Action action) {
+        action.execute(this);
+        // ScenariosChecker.check(action.event, this);
+        for (Actionable room : rooms) {
+            room.execute(action);
         }
-        return false;
     }
+
 }

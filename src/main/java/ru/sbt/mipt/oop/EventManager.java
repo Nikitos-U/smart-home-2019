@@ -10,7 +10,11 @@ class EventManager {
         SensorEvent event = getNextSensorEvent();
         while (event != null) {
             System.out.println("Got event: " + event);
-            smartHome.execute(event);
+            SensorEventType type = event.getType();
+            for (HandlerType handlerType : HandlerType.values() ) {
+                EventHandler eventHandler = handlerType.getEventHandler();
+                eventHandler.handle(event, smartHome);
+            }
             event = getNextSensorEvent();
         }
     }
