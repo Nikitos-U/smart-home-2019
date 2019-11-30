@@ -3,12 +3,14 @@ package ru.sbt.mipt.oop;
 import static ru.sbt.mipt.oop.SensorEventType.*;
 
 public class Light implements Actionable{
+    private String roomName;
     private boolean isOn;
     private final String id;
 
-    public Light(String id, boolean isOn) {
+    public Light(String id, boolean isOn, String roomName) {
         this.id = id;
         this.isOn = isOn;
+        this.roomName = roomName;
     }
 
     public boolean isOn() {
@@ -23,19 +25,12 @@ public class Light implements Actionable{
         isOn = on;
     }
 
+    public String getRoomName() {
+        return roomName;
+    }
+
     @Override
-    public boolean execute(SensorEvent event) {
-        if (this.id.equals(event.getObjectId())) {
-            if (event.getType() == LIGHT_ON) {
-                this.setOn(true);
-                System.out.print("Light " + this.id + " was turned on");
-                return true;
-            } else {
-                this.setOn(false);
-                System.out.print("Light " + this.id + " was turned off");
-                return true;
-            }
-        }
-        return false;
+    public void execute(Action action) {
+        action.execute(this);
     }
 }

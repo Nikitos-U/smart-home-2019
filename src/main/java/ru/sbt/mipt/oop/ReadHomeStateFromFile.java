@@ -6,11 +6,16 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-class HomeConditionFromFile implements HomeCondition {
+class ReadHomeStateFromFile implements ReadHomeState {
     @Override
-    public SmartHome readCondition() throws IOException {
+    public SmartHome readCondition(){
         Gson gson = new Gson();
-        String json = new String(Files.readAllBytes(Paths.get("smart-home-1.js")));
+        String json = null;
+        try {
+            json = new String(Files.readAllBytes(Paths.get("output.js")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         SmartHome smartHome = gson.fromJson(json, SmartHome.class);
         return smartHome;
     }
