@@ -1,21 +1,17 @@
 package ru.sbt.mipt.oop;
 
-import java.util.logging.Handler;
+import ru.sbt.mipt.oop.eventHandlers.AlarmDecorator;
+import ru.sbt.mipt.oop.eventHandlers.EventHandler;
+import ru.sbt.mipt.oop.eventHandlers.HandlerType;
 
 import static ru.sbt.mipt.oop.FakeSensorEventsGenerator.getNextSensorEvent;
-import static ru.sbt.mipt.oop.SensorEventType.*;
 
-class EventManager {
-    static void processEvent(SmartHome smartHome) {
-        SensorEvent event = getNextSensorEvent();
-        while (event != null) {
-            System.out.println("Got event: " + event);
-            SensorEventType type = event.getType();
-            for (HandlerType handlerType : HandlerType.values() ) {
-                EventHandler eventHandler = handlerType.getEventHandler();
-                eventHandler.handle(event, smartHome);
-            }
-            event = getNextSensorEvent();
+public class EventManager {
+    public static void processEvent(SensorEvent event, SmartHome smartHome) {
+        System.out.println("Got event: " + event);
+        for (HandlerType handlerType : HandlerType.values()) {
+            EventHandler eventHandler = handlerType.getEventHandler();
+            eventHandler.handle(event, smartHome);
         }
     }
 }

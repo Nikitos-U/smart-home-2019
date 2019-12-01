@@ -1,5 +1,7 @@
 package ru.sbt.mipt.oop;
 
+import ru.sbt.mipt.oop.eventHandlers.AlarmDecorator;
+
 import java.io.IOException;
 
 public class Application {
@@ -9,7 +11,6 @@ public class Application {
         ReadHomeState reader = new ReadHomeStateFromFile();
         SmartHome smartHome = reader.readCondition();
         // начинаем цикл обработки событий;
-        System.out.println(smartHome.getRooms() + "OLOLOLOLOLO");
-        EventManager.processEvent(smartHome);
+        EventIterator.iterate(smartHome);
     }
 }

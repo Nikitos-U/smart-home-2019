@@ -17,7 +17,7 @@ public class Light implements Actionable{
         return isOn;
     }
 
-    String getId() {
+    public String getId() {
         return id;
     }
 

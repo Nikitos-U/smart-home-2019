@@ -1,22 +1,30 @@
 package ru.sbt.mipt.oop.signalisation;
 
-public class SignalisationDeactivated extends State {
+import ru.sbt.mipt.oop.SensorEvent;
+import ru.sbt.mipt.oop.SensorEventType;
+
+public class SignalisationDeactivated implements State {
+    private  Signalisation signalisation;
+
     public SignalisationDeactivated(Signalisation signalisation) {
-        super(signalisation);
+        this.signalisation = signalisation;
     }
 
     @Override
-    void activate(String secretCode) {
-
+    public void activate(String someCode) {
+        signalisation.setSecretCode(someCode);
+        signalisation.setState(new SignalisationActivated(signalisation));
+        System.out.println("Signalisation activated");
     }
 
     @Override
-    void deactivate() {
-
+    public void deactivate(String secretCode) {
+        System.out.println("Signalisation already deactivated");
     }
 
     @Override
-    void toAlarmState() {
-
+    public void toAlarmState(String secretCode) {
+        signalisation.setState(new Alarm(signalisation));
     }
+
 }

@@ -4,6 +4,9 @@ import org.junit.Assert;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import ru.sbt.mipt.oop.*;
+import ru.sbt.mipt.oop.eventHandlers.DoorEventHandler;
+import ru.sbt.mipt.oop.eventHandlers.EventHandler;
+import ru.sbt.mipt.oop.eventHandlers.HallDoorClosedScenario;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -31,7 +34,7 @@ class HallDoorClosedScenarioTest {
 
     @Test
     void closeHallDoorAndTurnOffLights() {
-        SensorEvent closeHallDoorEvent = new SensorEvent(SensorEventType.DOOR_CLOSED, "1");
+        SensorEvent closeHallDoorEvent = new SensorEvent(SensorEventType.DOOR_CLOSED, "1",null);
         doorEventHandler.handle(closeHallDoorEvent,smartHome);
         hallDoorClosedScenario.handle(closeHallDoorEvent,smartHome);
         Assert.assertFalse(hallLight.isOn());
