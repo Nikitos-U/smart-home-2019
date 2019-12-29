@@ -1,35 +1,36 @@
 package ru.sbt.mipt.oop.eventHandlers;
 
 import ru.sbt.mipt.oop.*;
+import ru.sbt.mipt.oop.SensorEvents.SensorEvent;
 import ru.sbt.mipt.oop.signalisation.*;
 
 public class AlarmDecorator implements EventHandler {
     @Override
     public void handle(SensorEvent event, SmartHome smartHome) {
-        State state = smartHome.signalisation.getState();
+        SignalisationState state = smartHome.getSignalisation().getState();
         if (state instanceof SignalisationActivated) {
             System.out.println("Got event: " + event);
             if (!(event.getType().equals(SensorEventType.ALARM_ACTIVATE)) && !(event.getType().equals(SensorEventType.ALARM_DEACTIVATE))) {
                 AlarmMassageSender.send();
-                smartHome.signalisation.toAlarmState();
+                smartHome.getSignalisation().toAlarmState();
             } else if (event.getType().equals(SensorEventType.ALARM_DEACTIVATE)) {
-                smartHome.signalisation.deactivate(event.getSecretCode());
+                smartHome.getSignalisation().deactivate(event.getSecretCode());
             } else {
-                smartHome.signalisation.activate(event.getSecretCode());
+                smartHome.getSignalisation().activate(event.getSecretCode());
             }
 
         } else if (state instanceof Alarm) {
             if (event.getType().equals(SensorEventType.ALARM_DEACTIVATE)) {
                 System.out.println("Got event: " + event);
-                smartHome.signalisation.deactivate(event.getSecretCode());
-                System.out.println("Alarm deactivated");
+                smartHome.getSignalisation().deactivate(event.getSecretCode());
             } else {
                 System.out.println("Got event: " + event);
                 System.out.println("Alarm state");
                 AlarmMassageSender.send();
             }
         } else {
-            EventManager.processEvent(event, smartHome);
+            EventManager eventManager = new EventManager();
+            eventManager.handle(event,smartHome);
         }
     }
 }

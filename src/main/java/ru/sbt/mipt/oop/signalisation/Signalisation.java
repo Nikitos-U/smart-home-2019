@@ -3,7 +3,7 @@ package ru.sbt.mipt.oop.signalisation;
 import ru.sbt.mipt.oop.*;
 
 public class Signalisation implements Actionable {
-    private State state;
+    private SignalisationState state;
     private String secretCode = "";
 
     public Signalisation() {
@@ -19,11 +19,11 @@ public class Signalisation implements Actionable {
         this.secretCode = secretCode;
     }
 
-    void setState(State state) {
+    void setState(SignalisationState state) {
         this.state = state;
     }
 
-    public State getState() {
+    public SignalisationState getState() {
         return state;
     }
 
@@ -36,7 +36,7 @@ public class Signalisation implements Actionable {
     }
 
     public void toAlarmState() {
-        state.toAlarmState(secretCode);
+        state.toAlarmState();
     }
 
     boolean secretCodeChecker(String secretCode) {

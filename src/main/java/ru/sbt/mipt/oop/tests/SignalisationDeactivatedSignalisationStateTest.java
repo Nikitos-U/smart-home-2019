@@ -4,15 +4,16 @@ import org.junit.Assert;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import ru.sbt.mipt.oop.*;
+import ru.sbt.mipt.oop.SensorEvents.AlarmSensorEvent;
+import ru.sbt.mipt.oop.SensorEvents.SensorEvent;
 import ru.sbt.mipt.oop.eventHandlers.AlarmEventHandler;
-import ru.sbt.mipt.oop.signalisation.Alarm;
 import ru.sbt.mipt.oop.signalisation.SignalisationActivated;
 import ru.sbt.mipt.oop.signalisation.SignalisationDeactivated;
-import ru.sbt.mipt.oop.signalisation.State;
+import ru.sbt.mipt.oop.signalisation.SignalisationState;
 
 
 
-public class SignalisationDeactivatedStateTest {
+public class SignalisationDeactivatedSignalisationStateTest {
     private static AlarmEventHandler alarmEventHandler;
     private static SmartHome smartHome;
 
@@ -24,24 +25,24 @@ public class SignalisationDeactivatedStateTest {
 
     @Test
     void testDeactivatingEvent() {
-        SensorEvent correctPasswordDeactivation = new SensorEvent(SensorEventType.ALARM_DEACTIVATE, "12", "correct password");
+        SensorEvent correctPasswordDeactivation = new AlarmSensorEvent(SensorEventType.ALARM_DEACTIVATE, "12", "correct password");
         alarmEventHandler.handle(correctPasswordDeactivation, smartHome);
-        Assert.assertTrue(isInstanceOfDeactivated(smartHome.signalisation.getState()));
+        Assert.assertTrue(isInstanceOfDeactivated(smartHome.getSignalisation().getState()));
     }
 
     @Test
     void testActivatingEvent() {
-        SensorEvent activatingEvent = new SensorEvent(SensorEventType.ALARM_ACTIVATE,null,"some password");
+        SensorEvent activatingEvent = new AlarmSensorEvent(SensorEventType.ALARM_ACTIVATE,null,"some password");
         alarmEventHandler.handle(activatingEvent,smartHome);
-        Assert.assertTrue(isInstanceOfActivated(smartHome.signalisation.getState()));
+        Assert.assertTrue(isInstanceOfActivated(smartHome.getSignalisation().getState()));
     }
 
-    static boolean isInstanceOfActivated(State state) {
+    static boolean isInstanceOfActivated(SignalisationState state) {
         return (state instanceof SignalisationActivated);
     }
 
 
-    static boolean isInstanceOfDeactivated(State state) {
+    static boolean isInstanceOfDeactivated(SignalisationState state) {
         return (state instanceof SignalisationDeactivated);
     }
 }

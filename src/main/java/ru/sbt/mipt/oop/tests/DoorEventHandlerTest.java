@@ -4,6 +4,8 @@ import org.junit.Assert;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import ru.sbt.mipt.oop.*;
+import ru.sbt.mipt.oop.SensorEvents.NoSecretCodeEvent;
+import ru.sbt.mipt.oop.SensorEvents.SensorEvent;
 import ru.sbt.mipt.oop.eventHandlers.DoorEventHandler;
 
 import java.util.Arrays;
@@ -28,8 +30,8 @@ public class DoorEventHandlerTest {
 
     @Test
     void testWhetherClosedDoorOpenAndCloseCorrectly() {
-        SensorEvent sensorEvent = new SensorEvent(SensorEventType.DOOR_CLOSED, "12",null);
-        SensorEvent sensorEvent1 = new SensorEvent(SensorEventType.DOOR_OPEN, "12",null);
+        SensorEvent sensorEvent = new NoSecretCodeEvent(SensorEventType.DOOR_CLOSED, "12");
+        SensorEvent sensorEvent1 = new NoSecretCodeEvent(SensorEventType.DOOR_OPEN, "12");
         doorEventHandler.handle(sensorEvent1, smartHome);
         Assert.assertTrue(someClosedDoor.isOpen());
         doorEventHandler.handle(sensorEvent, smartHome);
@@ -38,8 +40,8 @@ public class DoorEventHandlerTest {
 
     @Test
     void testWhetherOpenedDoorCloseAndOpenCorrectly() {
-        SensorEvent doorClosed = new SensorEvent(SensorEventType.DOOR_CLOSED, "1",null);
-        SensorEvent doorOpened = new SensorEvent(SensorEventType.DOOR_OPEN, "1",null);
+        SensorEvent doorClosed = new NoSecretCodeEvent(SensorEventType.DOOR_CLOSED, "1");
+        SensorEvent doorOpened = new NoSecretCodeEvent(SensorEventType.DOOR_OPEN, "1");
         doorEventHandler.handle(doorClosed, smartHome);
         Assert.assertFalse(someOpenedDoor.isOpen());
         doorEventHandler.handle(doorOpened, smartHome);

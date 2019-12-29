@@ -1,9 +1,6 @@
 package ru.sbt.mipt.oop.signalisation;
 
-import ru.sbt.mipt.oop.SensorEvent;
-import ru.sbt.mipt.oop.SensorEventType;
-
-public class SignalisationDeactivated implements State {
+public class SignalisationDeactivated implements SignalisationState {
     private  Signalisation signalisation;
 
     public SignalisationDeactivated(Signalisation signalisation) {
@@ -23,7 +20,7 @@ public class SignalisationDeactivated implements State {
     }
 
     @Override
-    public void toAlarmState(String secretCode) {
+    public void toAlarmState() {
         signalisation.setState(new Alarm(signalisation));
     }
 

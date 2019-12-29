@@ -1,10 +1,6 @@
 package ru.sbt.mipt.oop.signalisation;
 
-import ru.sbt.mipt.oop.Action;
-import ru.sbt.mipt.oop.Actionable;
-import ru.sbt.mipt.oop.SensorEvent;
-
-public class Alarm implements State {
+public class Alarm implements SignalisationState {
     public Signalisation signalisation;
 
     public Alarm(Signalisation signalisation) {
@@ -25,13 +21,14 @@ public class Alarm implements State {
     public void deactivate(String someCode) {
         if (signalisation.secretCodeChecker(someCode)) {
             signalisation.setState(new SignalisationDeactivated(signalisation));
+            System.out.println("Right password signalisation deactivated");
         } else {
             System.out.println("Alarm activated, tikay s sela");
         }
     }
 
     @Override
-    public void toAlarmState(String secretCode) {
+    public void toAlarmState() {
         System.out.println("Alarm activated, tikay s sela");
     }
 

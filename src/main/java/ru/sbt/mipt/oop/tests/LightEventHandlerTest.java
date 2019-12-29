@@ -4,6 +4,8 @@ import org.junit.Assert;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import ru.sbt.mipt.oop.*;
+import ru.sbt.mipt.oop.SensorEvents.NoSecretCodeEvent;
+import ru.sbt.mipt.oop.SensorEvents.SensorEvent;
 import ru.sbt.mipt.oop.eventHandlers.LightEventHandler;
 
 import java.util.Arrays;
@@ -28,8 +30,8 @@ public class LightEventHandlerTest {
 
     @Test
     void testWhetherTurnedOffLightGetsOnAndOff() {
-        SensorEvent lightTurnOff = new SensorEvent(SensorEventType.LIGHT_OFF, "12",null);
-        SensorEvent lightTurnOn = new SensorEvent(SensorEventType.LIGHT_ON, "12",null);
+        SensorEvent lightTurnOff = new NoSecretCodeEvent(SensorEventType.LIGHT_OFF, "12");
+        SensorEvent lightTurnOn = new NoSecretCodeEvent(SensorEventType.LIGHT_ON, "12");
         lightEventHandler.handle(lightTurnOn, smartHome);
         Assert.assertTrue(someTurnedOffLight.isOn());
         lightEventHandler.handle(lightTurnOff, smartHome);
@@ -38,8 +40,8 @@ public class LightEventHandlerTest {
 
     @Test
     void testWhetherTurnedOnLightGetOffAndOn() {
-        SensorEvent lightTurnOff = new SensorEvent(SensorEventType.LIGHT_OFF, "1",null);
-        SensorEvent lightTurnOn = new SensorEvent(SensorEventType.LIGHT_ON, "1",null);
+        SensorEvent lightTurnOff = new NoSecretCodeEvent(SensorEventType.LIGHT_OFF, "1");
+        SensorEvent lightTurnOn = new NoSecretCodeEvent(SensorEventType.LIGHT_ON, "1");
         lightEventHandler.handle(lightTurnOff, smartHome);
         Assert.assertFalse(someTurnedOnLight.isOn());
         lightEventHandler.handle(lightTurnOn, smartHome);

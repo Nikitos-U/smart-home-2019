@@ -1,6 +1,6 @@
 package ru.sbt.mipt.oop.signalisation;
 
-public class SignalisationActivated implements State {
+public class SignalisationActivated implements SignalisationState {
     public Signalisation signalisation;
 
     public SignalisationActivated(Signalisation signalisation) {
@@ -25,7 +25,7 @@ public class SignalisationActivated implements State {
     }
 
     @Override
-    public void toAlarmState(String secretCode) {
+    public void toAlarmState() {
         signalisation.setState(new Alarm(signalisation));
     }
 }

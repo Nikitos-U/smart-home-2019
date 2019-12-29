@@ -28,7 +28,11 @@ public class SmartHome implements Actionable {
         return rooms;
     }
 
-    public Signalisation signalisation;
+    private Signalisation signalisation;
+
+    public Signalisation getSignalisation() {
+        return signalisation;
+    }
 
     @Override
     public void execute(Action action) {

@@ -1,8 +1,8 @@
 package ru.sbt.mipt.oop.signalisation;
 import ru.sbt.mipt.oop.*;
 
-public interface State {
+public interface SignalisationState {
     void activate(String someCode);
     void deactivate(String someCode);
-    void toAlarmState(String someCode);
+    void toAlarmState();
 }
