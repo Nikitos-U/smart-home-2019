@@ -1,6 +1,8 @@
-package ru.sbt.mipt.oop;
+package ru.sbt.mipt.oop.SensorEvents;
 
-public class SensorEvent {
+import ru.sbt.mipt.oop.SensorEventType;
+
+public abstract class SensorEvent {
     private final SensorEventType type;
     private final String objectId;
 
@@ -9,19 +11,21 @@ public class SensorEvent {
         this.objectId = objectId;
     }
 
-    SensorEventType getType() {
+    public SensorEventType getType() {
         return type;
     }
 
-    String getObjectId() {
+    public String getObjectId() {
         return objectId;
     }
+
+    public abstract String getSecretCode();
 
     @Override
     public String toString() {
         return "SensorEvent{" +
-                "type=" + type +
-                ", objectId='" + objectId + '\'' +
+                "type = " + type +
+                ", objectId = " + objectId +
                 '}';
     }
 }
