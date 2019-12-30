@@ -1,5 +1,7 @@
 package ru.sbt.mipt.oop.signalisation;
 
+import ru.sbt.mipt.oop.SensorEvents.SensorEvent;
+
 public class Alarm implements SignalisationState {
     public Signalisation signalisation;
 
@@ -18,8 +20,8 @@ public class Alarm implements SignalisationState {
 
 
     @Override
-    public void deactivate(String someCode) {
-        if (signalisation.secretCodeChecker(someCode)) {
+    public void deactivate(SensorEvent event) {
+        if (signalisation.secretCodeChecker(event.getSecretCode())) {
             signalisation.setState(new SignalisationDeactivated(signalisation));
             System.out.println("Right password signalisation deactivated");
         } else {

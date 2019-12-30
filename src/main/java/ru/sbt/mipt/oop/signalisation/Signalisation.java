@@ -1,6 +1,8 @@
 package ru.sbt.mipt.oop.signalisation;
 
 import ru.sbt.mipt.oop.*;
+import ru.sbt.mipt.oop.SensorEvents.SensorEvent;
+import ru.sbt.mipt.oop.library.events.CCSensorEvent;
 
 public class Signalisation implements Actionable {
     private SignalisationState state;
@@ -31,8 +33,8 @@ public class Signalisation implements Actionable {
         state.activate(secretCode);
     }
 
-    public void deactivate(String secretCode) {
-        state.deactivate(secretCode);
+    public void deactivate(SensorEvent event) {
+        state.deactivate(event);
     }
 
     public void toAlarmState() {

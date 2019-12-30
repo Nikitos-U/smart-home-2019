@@ -1,5 +1,7 @@
 package ru.sbt.mipt.oop.signalisation;
 
+import ru.sbt.mipt.oop.SensorEvents.SensorEvent;
+
 public class SignalisationActivated implements SignalisationState {
     public Signalisation signalisation;
 
@@ -13,8 +15,8 @@ public class SignalisationActivated implements SignalisationState {
     }
 
     @Override
-    public void deactivate(String someCode) {
-        if (signalisation.secretCodeChecker(someCode)){
+    public void deactivate(SensorEvent event) {
+        if (signalisation.secretCodeChecker(event.getSecretCode())){
             System.out.println("Vveden verniy cod, dectiviruus'");
             signalisation.setState(new SignalisationDeactivated(signalisation));
         } else {

@@ -1,5 +1,7 @@
 package ru.sbt.mipt.oop.signalisation;
 
+import ru.sbt.mipt.oop.SensorEvents.SensorEvent;
+
 public class SignalisationDeactivated implements SignalisationState {
     private  Signalisation signalisation;
 
@@ -15,7 +17,7 @@ public class SignalisationDeactivated implements SignalisationState {
     }
 
     @Override
-    public void deactivate(String secretCode) {
+    public void deactivate(SensorEvent event) {
         System.out.println("Signalisation already deactivated");
     }
 

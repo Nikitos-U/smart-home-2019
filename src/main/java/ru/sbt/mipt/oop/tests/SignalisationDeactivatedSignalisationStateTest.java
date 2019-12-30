@@ -20,21 +20,22 @@ public class SignalisationDeactivatedSignalisationStateTest {
     @BeforeAll
     static void preparations() {
         smartHome = new SmartHome();
-        alarmEventHandler = new AlarmEventHandler();
-    }
-
-    @Test
-    void testDeactivatingEvent() {
-        SensorEvent correctPasswordDeactivation = new AlarmSensorEvent(SensorEventType.ALARM_DEACTIVATE, "12", "correct password");
-        alarmEventHandler.handle(correctPasswordDeactivation, smartHome);
-        Assert.assertTrue(isInstanceOfDeactivated(smartHome.getSignalisation().getState()));
+        alarmEventHandler = new AlarmEventHandler(smartHome);
     }
 
     @Test
     void testActivatingEvent() {
         SensorEvent activatingEvent = new AlarmSensorEvent(SensorEventType.ALARM_ACTIVATE,null,"some password");
-        alarmEventHandler.handle(activatingEvent,smartHome);
+        alarmEventHandler.handle(activatingEvent);
         Assert.assertTrue(isInstanceOfActivated(smartHome.getSignalisation().getState()));
+    }
+
+    @Test
+    void testDeactivatingEvent() {
+        SensorEvent correctPasswordDeactivation = new AlarmSensorEvent(SensorEventType.ALARM_DEACTIVATE, "12", "some password");
+        alarmEventHandler.handle(correctPasswordDeactivation);
+        System.out.println(smartHome.getSignalisation().getState().toString());
+        Assert.assertTrue(isInstanceOfDeactivated(smartHome.getSignalisation().getState()));
     }
 
     static boolean isInstanceOfActivated(SignalisationState state) {

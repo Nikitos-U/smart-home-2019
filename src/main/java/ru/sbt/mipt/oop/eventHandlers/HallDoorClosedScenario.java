@@ -6,10 +6,21 @@ import ru.sbt.mipt.oop.SensorEvents.SensorEvent;
 import static ru.sbt.mipt.oop.SensorEventType.*;
 
 public class HallDoorClosedScenario implements EventHandler {
+    private SmartHome smartHome;
+
+    public HallDoorClosedScenario() {
+    }
+
+    public HallDoorClosedScenario(SmartHome smartHome) {
+        this.smartHome = smartHome;
+    }
 
     @Override
-    public void handle(SensorEvent event, SmartHome smartHome) {
+    public void handle(SensorEvent event) {
         Action action;
+        if (event == null){
+            return;
+        }
         if (event.getType() != DOOR_CLOSED) {
             action = null;
         } else {

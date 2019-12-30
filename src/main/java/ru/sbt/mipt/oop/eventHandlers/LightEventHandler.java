@@ -8,11 +8,20 @@ import ru.sbt.mipt.oop.SmartHome;
 import static ru.sbt.mipt.oop.SensorEventType.*;
 
 public class LightEventHandler implements EventHandler{
+    private SmartHome smartHome;
+
+    public LightEventHandler(SmartHome smartHome) {
+        this.smartHome = smartHome;
+    }
+
     public LightEventHandler() {
     }
 
     @Override
-    public void handle(SensorEvent event, SmartHome smartHome) {
+    public void handle(SensorEvent event) {
+        if (event == null){
+            return;
+        }
         Action action;
         if (event.getType() != LIGHT_OFF && event.getType() != LIGHT_ON) {
             action = null;

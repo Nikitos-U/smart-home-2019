@@ -10,9 +10,21 @@ import ru.sbt.mipt.oop.signalisation.Signalisation;
 import static ru.sbt.mipt.oop.SensorEventType.*;
 
 public class AlarmEventHandler implements EventHandler {
+    private SmartHome smartHome;
+
+    public AlarmEventHandler() {
+    }
+
+    public AlarmEventHandler(SmartHome smartHome) {
+        this.smartHome = smartHome;
+    }
+
     @Override
-    public void handle(SensorEvent event, SmartHome smartHome) {
+    public void handle(SensorEvent event) {
         Action action;
+        if (event == null){
+            return;
+        }
         if (event.getType() != ALARM_ACTIVATE && event.getType() != SensorEventType.ALARM_DEACTIVATE) {
             action = null;
         } else {
@@ -24,7 +36,7 @@ public class AlarmEventHandler implements EventHandler {
                 if (event.getType().equals(ALARM_ACTIVATE)) {
                     signalisation.activate(event.getSecretCode());
                 } else {
-                        signalisation.deactivate(event.getSecretCode());
+                    signalisation.deactivate(event);
                 }
             };
         }
