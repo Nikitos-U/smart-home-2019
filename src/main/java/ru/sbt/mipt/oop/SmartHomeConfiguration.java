@@ -9,12 +9,14 @@ import ru.sbt.mipt.oop.Adapters.LightEventAdapter;
 import ru.sbt.mipt.oop.Adapters.SensorEventAdapter;
 import ru.sbt.mipt.oop.SensorEvents.SensorEvent;
 import ru.sbt.mipt.oop.eventHandlers.*;
+import ru.sbt.mipt.oop.eventHandlers.EventHandler;
 import ru.sbt.mipt.oop.library.events.SensorEventsManager;
+import ru.sbt.mipt.oop.remoteControlManagment.RCConfiguration;
 
 
 import java.util.Collection;
-
 @Configuration
+@Import(RCConfiguration.class)
 public class SmartHomeConfiguration {
 
     @Bean
