@@ -5,14 +5,20 @@ import static ru.sbt.mipt.oop.SensorEventType.DOOR_OPEN;
 public class Door implements Actionable {
     private final String id;
     private boolean isOpen;
+    private String roomName;
 
-    public Door(boolean isOpen, String id) {
+    public Door(boolean isOpen, String id, String roomName) {
         this.isOpen = isOpen;
         this.id = id;
+        this.roomName = roomName;
     }
 
     public String getId() {
         return id;
+    }
+
+    public boolean isOpen() {
+        return isOpen;
     }
 
     public void setOpen(boolean open) {
@@ -20,18 +26,13 @@ public class Door implements Actionable {
     }
 
     @Override
-    public boolean execute(SensorEvent event) {
-        if (this.id.equals(event.getObjectId())) {
-            if (event.getType() == DOOR_OPEN) {
-                this.setOpen(true);
-                System.out.print("Door " + this.getId() + " was opened");
-                return true;
-            } else {
-                this.setOpen(false);
-                System.out.print("Door " + this.getId() +  " was closed");
-                return true;
-            }
-        }
-        return false;
+    public void execute(Action action) {
+        action.execute(this);
     }
+
+    public String getRoomName() {
+        return roomName;
+    }
+
 }
+

@@ -1,0 +1,53 @@
+package ru.sbt.mipt.oop.eventHandlers;
+
+import ru.sbt.mipt.oop.*;
+import ru.sbt.mipt.oop.SensorEvents.SensorEvent;
+
+import static ru.sbt.mipt.oop.SensorEventType.*;
+
+public class HallDoorClosedScenario implements EventHandler {
+    private SmartHome smartHome;
+
+    public HallDoorClosedScenario() {
+    }
+
+    public HallDoorClosedScenario(SmartHome smartHome) {
+        this.smartHome = smartHome;
+    }
+
+    @Override
+    public void handle(SensorEvent event) {
+        Action action;
+        if (event == null){
+            return;
+        }
+        if (event.getType() != DOOR_CLOSED) {
+            action = null;
+        } else {
+            action = o -> {
+                if (!(o instanceof Door)){
+                    return;
+                }
+                Door door = (Door) o;
+                if (door.getId().equals(event.getObjectId())) {
+                    if (door.getRoomName().equals("hall")) {
+                        if (!door.isOpen()) {
+                            Action lightsOff = o1 -> {
+                                if (!(o1 instanceof Light)) {
+                                    return;
+                                }
+                                Light light = (Light) o1;
+                                light.setOn(false);
+                            };
+                            smartHome.execute(lightsOff);
+                        }
+                        System.out.println("All lights were turned off.");
+                    }
+                }
+            };
+        }
+        if (action != null) {
+            smartHome.execute(action);
+        }
+    }
+}

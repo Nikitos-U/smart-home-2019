@@ -1,28 +1,31 @@
 package ru.sbt.mipt.oop;
 
-import java.util.logging.Handler;
+import ru.sbt.mipt.oop.Adapters.CCSensorEventAdapter;
+import ru.sbt.mipt.oop.Adapters.SensorEventAdapter;
+import ru.sbt.mipt.oop.SensorEvents.SensorEvent;
+import ru.sbt.mipt.oop.eventHandlers.EventHandler;
+import ru.sbt.mipt.oop.eventHandlers.HandlerType;
+import ru.sbt.mipt.oop.library.events.CCSensorEvent;
 
-import static ru.sbt.mipt.oop.FakeSensorEventsGenerator.getNextSensorEvent;
-import static ru.sbt.mipt.oop.SensorEventType.*;
+import java.util.Collection;
 
-class EventManager {
-    static void processEvent(SmartHome smartHome) {
-        SensorEvent event = getNextSensorEvent();
-        while (event != null) {
-            System.out.println("Got event: " + event);
-            /*SensorEventType type = event.getType();
-            for (HandlerType handlerType : HandlerType.values() ) {
-                EventHandler eventHandler = handlerType.getEventHandler();
-                eventHandler.run(type,event.getObjectId(),smartHome);
-            }*/
-            smartHome.execute(event);
-            event = getNextSensorEvent();
-        }
+public class EventManager implements ru.sbt.mipt.oop.library.events.EventHandler {
+    private SensorEventAdapter adapter;
+    private Collection<EventHandler> eventHandlers;
+
+    public EventManager(Collection<EventHandler> eventHandlers, SensorEventAdapter adapter) {
+        this.adapter = adapter;
+        this.eventHandlers = eventHandlers;
     }
 
+    @Override
+    public void handleEvent(CCSensorEvent event) {
+        System.out.println("Got event: " + event.getEventType() + " for object:" + event.getObjectId());
+        SensorEvent adaptedEvent = adapter.adaptee(event);
 
-    static void sendCommand(SensorCommand command) {
-        System.out.println("Pretent we're sending command " + command);
+        for (EventHandler eventHandler : eventHandlers) {
+            eventHandler.handle(adaptedEvent);
+        }
     }
 }
 
