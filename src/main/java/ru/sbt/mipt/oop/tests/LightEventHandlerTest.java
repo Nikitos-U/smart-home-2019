@@ -25,16 +25,16 @@ public class LightEventHandlerTest {
         someTurnedOnLight = new Light("1", true, "anotherRoom");
         smartHome.addRoom(new Room(Arrays.asList(someTurnedOffLight), Collections.emptyList(), "someRoom"));
         smartHome.addRoom(new Room(Arrays.asList(someTurnedOnLight), Collections.emptyList(), "anotherRoom"));
-        lightEventHandler = new LightEventHandler();
+        lightEventHandler = new LightEventHandler(smartHome);
     }
 
     @Test
     void testWhetherTurnedOffLightGetsOnAndOff() {
         SensorEvent lightTurnOff = new NoSecretCodeEvent(SensorEventType.LIGHT_OFF, "12");
         SensorEvent lightTurnOn = new NoSecretCodeEvent(SensorEventType.LIGHT_ON, "12");
-        lightEventHandler.handle(lightTurnOn, smartHome);
+        lightEventHandler.handle(lightTurnOn);
         Assert.assertTrue(someTurnedOffLight.isOn());
-        lightEventHandler.handle(lightTurnOff, smartHome);
+        lightEventHandler.handle(lightTurnOff);
         Assert.assertFalse(someTurnedOffLight.isOn());
     }
 
@@ -42,9 +42,9 @@ public class LightEventHandlerTest {
     void testWhetherTurnedOnLightGetOffAndOn() {
         SensorEvent lightTurnOff = new NoSecretCodeEvent(SensorEventType.LIGHT_OFF, "1");
         SensorEvent lightTurnOn = new NoSecretCodeEvent(SensorEventType.LIGHT_ON, "1");
-        lightEventHandler.handle(lightTurnOff, smartHome);
+        lightEventHandler.handle(lightTurnOff);
         Assert.assertFalse(someTurnedOnLight.isOn());
-        lightEventHandler.handle(lightTurnOn, smartHome);
+        lightEventHandler.handle(lightTurnOn);
         Assert.assertTrue(someTurnedOnLight.isOn());
     }
 }

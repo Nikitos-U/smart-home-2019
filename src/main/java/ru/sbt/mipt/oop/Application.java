@@ -1,12 +1,14 @@
 package ru.sbt.mipt.oop;
 
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.AbstractApplicationContext;
+import ru.sbt.mipt.oop.library.events.SensorEventsManager;
+
 public class Application {
 
     public static void main(String... args){
-        // считываем состояние дома из файла
-        ReadHomeState reader = new ReadHomeStateFromFile();
-        SmartHome smartHome = reader.readCondition();
-        // начинаем цикл обработки событий;
-        EventProcessor.process(smartHome);
+        AbstractApplicationContext context = new AnnotationConfigApplicationContext(SmartHomeConfiguration.class);
+        SensorEventsManager sensorEventsManager = context.getBean(SensorEventsManager.class);
+        sensorEventsManager.start();
     }
 }

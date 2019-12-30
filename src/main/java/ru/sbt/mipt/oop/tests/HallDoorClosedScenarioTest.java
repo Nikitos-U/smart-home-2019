@@ -30,15 +30,15 @@ class HallDoorClosedScenarioTest {
         anotherRoomLight = new Light( "3", true,"anotherRoom");
         smartHome.addRoom(new Room(Arrays.asList(hallLight), Arrays.asList(openedHallDoor), "hall"));
         smartHome.addRoom(new Room(Arrays.asList(anotherRoomLight),  Collections.emptyList(), "anotherRoom"));
-        doorEventHandler = new DoorEventHandler();
-        hallDoorClosedScenario = new HallDoorClosedScenario();
+        doorEventHandler = new DoorEventHandler(smartHome);
+        hallDoorClosedScenario = new HallDoorClosedScenario(smartHome);
     }
 
     @Test
     void closeHallDoorAndTurnOffLights() {
         SensorEvent closeHallDoorEvent = new NoSecretCodeEvent(SensorEventType.DOOR_CLOSED, "1");
-        doorEventHandler.handle(closeHallDoorEvent,smartHome);
-        hallDoorClosedScenario.handle(closeHallDoorEvent,smartHome);
+        doorEventHandler.handle(closeHallDoorEvent);
+        hallDoorClosedScenario.handle(closeHallDoorEvent);
         Assert.assertFalse(hallLight.isOn());
         Assert.assertFalse(anotherRoomLight.isOn());
         Assert.assertFalse(openedHallDoor.isOpen());

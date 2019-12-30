@@ -25,16 +25,16 @@ public class DoorEventHandlerTest {
         someOpenedDoor = new Door(true, "1", "anotherRoom");
         smartHome.addRoom(new Room(Collections.emptyList(), Arrays.asList(someClosedDoor), "someRoom"));
         smartHome.addRoom(new Room(Collections.emptyList(), Arrays.asList(someOpenedDoor), "anotherRoom"));
-        doorEventHandler = new DoorEventHandler();
+        doorEventHandler = new DoorEventHandler(smartHome);
     }
 
     @Test
     void testWhetherClosedDoorOpenAndCloseCorrectly() {
         SensorEvent sensorEvent = new NoSecretCodeEvent(SensorEventType.DOOR_CLOSED, "12");
         SensorEvent sensorEvent1 = new NoSecretCodeEvent(SensorEventType.DOOR_OPEN, "12");
-        doorEventHandler.handle(sensorEvent1, smartHome);
+        doorEventHandler.handle(sensorEvent1);
         Assert.assertTrue(someClosedDoor.isOpen());
-        doorEventHandler.handle(sensorEvent, smartHome);
+        doorEventHandler.handle(sensorEvent);
         Assert.assertFalse(someClosedDoor.isOpen());
     }
 
@@ -42,9 +42,9 @@ public class DoorEventHandlerTest {
     void testWhetherOpenedDoorCloseAndOpenCorrectly() {
         SensorEvent doorClosed = new NoSecretCodeEvent(SensorEventType.DOOR_CLOSED, "1");
         SensorEvent doorOpened = new NoSecretCodeEvent(SensorEventType.DOOR_OPEN, "1");
-        doorEventHandler.handle(doorClosed, smartHome);
+        doorEventHandler.handle(doorClosed);
         Assert.assertFalse(someOpenedDoor.isOpen());
-        doorEventHandler.handle(doorOpened, smartHome);
+        doorEventHandler.handle(doorOpened);
         Assert.assertTrue(someOpenedDoor.isOpen());
     }
 }

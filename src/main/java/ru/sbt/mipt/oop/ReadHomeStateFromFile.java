@@ -7,12 +7,18 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 class ReadHomeStateFromFile implements ReadHomeState {
+    private String fileName;
+
+    public ReadHomeStateFromFile(String fileName) {
+        this.fileName = fileName;
+    }
+
     @Override
     public SmartHome readCondition(){
         Gson gson = new Gson();
         String json = null;
         try {
-            json = new String(Files.readAllBytes(Paths.get("output.js")));
+            json = new String(Files.readAllBytes(Paths.get(fileName)));
         } catch (IOException e) {
             e.printStackTrace();
         }
