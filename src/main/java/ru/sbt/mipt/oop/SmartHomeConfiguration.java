@@ -11,6 +11,7 @@ import ru.sbt.mipt.oop.remoteControlManagment.RCConfiguration;
 
 
 import java.util.Collection;
+
 @Configuration
 @Import(RCConfiguration.class)
 public class SmartHomeConfiguration {
@@ -29,7 +30,7 @@ public class SmartHomeConfiguration {
     SensorEventsManager sensorEventsManager(Collection<EventHandler> handlers,
                                             SensorEventAdapter eventAdapter) {
         SensorEventsManager sensorEventsManager = new SensorEventsManager();
-        sensorEventsManager.registerEventHandler(new CCSensorEventAdapter(eventAdapter,smartHome(),handlers));
+        sensorEventsManager.registerEventHandler(new CCSensorEventAdapter(eventAdapter, smartHome(), handlers));
         return sensorEventsManager;
     }
 

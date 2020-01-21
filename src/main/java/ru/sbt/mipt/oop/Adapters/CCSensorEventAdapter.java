@@ -24,7 +24,7 @@ public class CCSensorEventAdapter implements EventHandler {
     public void handleEvent(CCSensorEvent event) {
         System.out.println("Got event: " + event.getEventType() + " for object:" + event.getObjectId());
         SensorEvent adaptedEvent = adapter.adaptee(event);
-        AlarmDecorator alarmDecorator = new AlarmDecorator(smartHome,new EventManager(eventHandlers));
+        AlarmDecorator alarmDecorator = new AlarmDecorator(smartHome, new EventManager(eventHandlers));
         alarmDecorator.handle(adaptedEvent);
     }
 }

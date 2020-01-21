@@ -14,7 +14,7 @@ public class AlarmDecorator implements EventHandler {
     }
 
     @Override
-    public void handle (SensorEvent event) {
+    public void handle(SensorEvent event) {
         SignalisationState state = smartHome.getSignalisation().getState();
         if (state instanceof SignalisationActivated) {
             System.out.println("Got event: " + event);
