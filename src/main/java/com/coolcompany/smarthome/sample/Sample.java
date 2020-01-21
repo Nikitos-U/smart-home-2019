@@ -1,6 +1,6 @@
-package ru.sbt.mipt.oop.library.sample;
+package com.coolcompany.smarthome.sample;
 
-import ru.sbt.mipt.oop.library.events.SensorEventsManager;
+import com.coolcompany.smarthome.events.SensorEventsManager;
 
 public class Sample {
     public static void main(String[] args) {

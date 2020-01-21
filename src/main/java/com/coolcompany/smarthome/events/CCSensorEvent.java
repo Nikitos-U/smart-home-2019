@@ -1,4 +1,4 @@
-package ru.sbt.mipt.oop.library.events;
+package com.coolcompany.smarthome.events;
 
 public class CCSensorEvent {
     private final String eventType;

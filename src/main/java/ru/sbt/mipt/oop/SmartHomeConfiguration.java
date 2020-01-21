@@ -3,14 +3,10 @@ package ru.sbt.mipt.oop;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import ru.sbt.mipt.oop.Adapters.CCSensorEventAdapter;
-import ru.sbt.mipt.oop.Adapters.DoorEventAdapter;
-import ru.sbt.mipt.oop.Adapters.LightEventAdapter;
-import ru.sbt.mipt.oop.Adapters.SensorEventAdapter;
-import ru.sbt.mipt.oop.SensorEvents.SensorEvent;
+import ru.sbt.mipt.oop.Adapters.*;
 import ru.sbt.mipt.oop.eventHandlers.*;
 import ru.sbt.mipt.oop.eventHandlers.EventHandler;
-import ru.sbt.mipt.oop.library.events.SensorEventsManager;
+import com.coolcompany.smarthome.events.SensorEventsManager;
 import ru.sbt.mipt.oop.remoteControlManagment.RCConfiguration;
 
 
@@ -31,17 +27,16 @@ public class SmartHomeConfiguration {
 
     @Bean
     SensorEventsManager sensorEventsManager(Collection<EventHandler> handlers,
-                                            Collection<SensorEventAdapter> adapters) {
+                                            SensorEventAdapter eventAdapter) {
         SensorEventsManager sensorEventsManager = new SensorEventsManager();
-        sensorEventsManager.registerEventHandler(new AlarmDecorator(
-                smartHome(), new EventManager(handlers, eventAdapter(adapters))));
+        sensorEventsManager.registerEventHandler(new CCSensorEventAdapter(eventAdapter,smartHome(),handlers));
         return sensorEventsManager;
     }
 
 
     @Bean
     SensorEventAdapter eventAdapter(Collection<SensorEventAdapter> adapters) {
-        return new CCSensorEventAdapter(adapters);
+        return new CCSensorEventConverter(adapters);
     }
 
     @Bean

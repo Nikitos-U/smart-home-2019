@@ -2,7 +2,6 @@ package ru.sbt.mipt.oop.signalisation;
 
 import ru.sbt.mipt.oop.*;
 import ru.sbt.mipt.oop.SensorEvents.SensorEvent;
-import ru.sbt.mipt.oop.library.events.CCSensorEvent;
 
 public class Signalisation implements Actionable {
     private SignalisationState state;

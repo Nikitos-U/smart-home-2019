@@ -2,39 +2,38 @@ package ru.sbt.mipt.oop.eventHandlers;
 
 import ru.sbt.mipt.oop.*;
 import ru.sbt.mipt.oop.SensorEvents.SensorEvent;
-import ru.sbt.mipt.oop.library.events.CCSensorEvent;
 import ru.sbt.mipt.oop.signalisation.*;
 
-public class AlarmDecorator implements ru.sbt.mipt.oop.library.events.EventHandler {
+public class AlarmDecorator implements EventHandler {
     SmartHome smartHome;
-    ru.sbt.mipt.oop.library.events.EventHandler eventHandler;
+    EventHandler eventHandler;
 
-    public AlarmDecorator(SmartHome smartHome, ru.sbt.mipt.oop.library.events.EventHandler eventHandler) {
+    public AlarmDecorator(SmartHome smartHome, EventHandler eventHandler) {
         this.smartHome = smartHome;
         this.eventHandler = eventHandler;
     }
 
     @Override
-    public void handleEvent(CCSensorEvent event) {
+    public void handle (SensorEvent event) {
         SignalisationState state = smartHome.getSignalisation().getState();
         if (state instanceof SignalisationActivated) {
             System.out.println("Got event: " + event);
-            if (!(event.getEventType().equals(SensorEventType.ALARM_ACTIVATE.toString())) && !(event.getEventType().equals(SensorEventType.ALARM_DEACTIVATE.toString()))) {
+            if (!(event.getType().equals(SensorEventType.ALARM_ACTIVATE.toString())) && !(event.getType().equals(SensorEventType.ALARM_DEACTIVATE.toString()))) {
                 AlarmMassageSender.send();
 
-            } else if (event.getEventType().equals(SensorEventType.ALARM_DEACTIVATE.toString())) {
+            } else if (event.getType().equals(SensorEventType.ALARM_DEACTIVATE.toString())) {
                 //smartHome.getSignalisation().deactivate(event.getSecretCode());
-                eventHandler.handleEvent(event);
+                eventHandler.handle(event);
             } else {
                 //smartHome.getSignalisation().activate(event.getSecretCode());
-                eventHandler.handleEvent(event);
+                eventHandler.handle(event);
             }
 
         } else if (state instanceof Alarm) {
-            if (event.getEventType().equals(SensorEventType.ALARM_DEACTIVATE.toString())) {
+            if (event.getType().equals(SensorEventType.ALARM_DEACTIVATE.toString())) {
                 System.out.println("Got event: " + event);
                 //smartHome.getSignalisation().deactivate(event.getSecretCode());
-                eventHandler.handleEvent(event);
+                eventHandler.handle(event);
             } else {
                 System.out.println("Got event: " + event);
                 System.out.println("Alarm state");
@@ -43,7 +42,7 @@ public class AlarmDecorator implements ru.sbt.mipt.oop.library.events.EventHandl
         } else {
             //EventManager eventManager = new EventManager(smartHome);
             //eventManager.handleEvent(event);
-            eventHandler.handleEvent(event);
+            eventHandler.handle(event);
         }
     }
 }

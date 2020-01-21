@@ -1,4 +1,4 @@
-package ru.sbt.mipt.oop.library.events;
+package com.coolcompany.smarthome.events;
 
 import java.util.ArrayList;
 import java.util.Collection;

@@ -3,7 +3,7 @@ package ru.sbt.mipt.oop.Adapters;
 import ru.sbt.mipt.oop.SensorEventType;
 import ru.sbt.mipt.oop.SensorEvents.NoSecretCodeEvent;
 import ru.sbt.mipt.oop.SensorEvents.SensorEvent;
-import ru.sbt.mipt.oop.library.events.CCSensorEvent;
+import com.coolcompany.smarthome.events.CCSensorEvent;
 
 public class LightEventAdapter implements SensorEventAdapter {
 
