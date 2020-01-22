@@ -5,10 +5,10 @@ import ru.sbt.mipt.oop.SensorEvents.NoSecretCodeEvent;
 import ru.sbt.mipt.oop.SensorEvents.SensorEvent;
 import com.coolcompany.smarthome.events.CCSensorEvent;
 
-public class DoorEventAdapter implements SensorEventAdapter {
+public class DoorEventConverter implements SensorEventConverter {
 
     @Override
-    public SensorEvent adaptee(CCSensorEvent event) {
+    public SensorEvent convert(CCSensorEvent event) {
         if (!event.getEventType().equals("DoorIsOpen") && !event.getEventType().equals("DoorIsClosed")){
             return null;
         } if (event.getEventType().equals("DoorIsOpen")) {
